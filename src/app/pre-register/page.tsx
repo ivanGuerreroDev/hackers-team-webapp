@@ -109,9 +109,9 @@ export default function Home() {
                 <div className="basis-1/2">
                     <h2 className="text-2xl font-bold mb-5 text-center">Pre-registro</h2>
                     <p className="text-md text-gray-400 mb-4">
-                        Se les notificará por correo si fueron aceptados en la liga, costo de inscripción y su posición en el equipo.
+                        Se les notificará por correo si fueron aceptados en la liga y su posición de juego.
                         <br />
-                        Personas inscritas como <strong>reserva</strong> pagaran solo la mitad del costo de inscripción.<br />
+                        Es un unico pago antes de iniciar la liga, si no se realiza el pago no se garantiza su cupo en la liga.<br />
                     </p>
                     {responseMessage.value &&
                         <p
@@ -167,11 +167,11 @@ export default function Home() {
                             className="w-full dark text-foreground !bg-background"
                         >
                             <SelectSection title="Posiciones">
-                                <SelectItem key="infield">Infield</SelectItem>
-                                <SelectItem key="outfield">Outfield</SelectItem>
-                                <SelectItem key="catcher">Catcher</SelectItem>
-                                <SelectItem key="pitcher">Pitcher</SelectItem>
-                                <SelectItem key="reserva">Reserva</SelectItem>
+                                <SelectItem key="infield">Infield - Costo: 70$ (titular)</SelectItem>
+                                <SelectItem key="outfield">Outfield - Costo: 70$ (titular)</SelectItem>
+                                <SelectItem key="catcher">Catcher - Costo: 70$ (titular)</SelectItem>
+                                <SelectItem key="pitcher">Pitcher - Costo: 35$</SelectItem>
+                                <SelectItem key="reserva">Reserva - Costo: 35$</SelectItem>
                             </SelectSection>
                         </Select>
                         {formik.touched.position && formik.errors.position ? (
