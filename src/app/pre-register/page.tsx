@@ -14,8 +14,8 @@ import {
     TableCell
 } from "@nextui-org/table";
 import { useFormik } from "formik";
-import { collection, getDocs, addDoc, doc, query, where } from "firebase/firestore";
-import {db} from "@/lib/firebase";
+import { collection, getDocs, addDoc, doc, query, where, setDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 import * as Yup from "yup";
 type Form = {
@@ -36,12 +36,14 @@ export default function Home() {
         initialValues: {
             name: "",
             email: "",
+            phone:"",
             position: "",
             league: "",
         },
         validationSchema: Yup.object({
             name: Yup.string().required("Nombre completo es requerido"),
             email: Yup.string().email("Correo invalido").required("Debe ingresar un correo"),
+            phone: Yup.string().required("Debe ingresar un número de teléfono"),
             position: Yup.string().required("Debe seleccionar una posición"),
             league: Yup.string().required("Debe seleccionar una liga")
         }),
@@ -72,15 +74,11 @@ export default function Home() {
     }
     const handleAddRequest = async (values: Form) => {
         try {
-            const response = await addDoc(collection(db, "playerRequestLeague"), values);
-            console.log(response)
-            if(response){
-                formik.resetForm();
+            const emailLeagueCombo = `${values.email}_${values.league}`;
+            await setDoc(doc(db, "playerRequestLeague", emailLeagueCombo), values);
+            formik.resetForm();
                 setResponseMessage({ value: "Registro exitoso", type: "sucess" });
                 getRequests();
-            } else {
-                setResponseMessage({ value: "Error al registrar", type: "error" });
-            }
         } catch (error) {
             setResponseMessage({ value: "Error al registrar", type: "error" });
             console.error("Error adding document: ", error);
@@ -99,7 +97,6 @@ export default function Home() {
 
     return (
         <main className="dark text-foreground bg-background container mx-auto py-4">
-            <h1 className="text-4xl font-bold text-center">Hackers</h1>
             <div className="flex flex-col items-center">
                 <Image
                     src="/images/team-logo.png"
@@ -108,22 +105,14 @@ export default function Home() {
                     height={100}
                 />
             </div>
-            <p className="text-md text-gray-400 mb-4">
-                Cantidad de jugadores por posición:
-                <br/>
-                Catcher: 1<br/>
-                Infield: 4 + 2 reservas<br/>
-                Outfield: 4 + 2 reservas<br/>
-                Pitcher: 2<br/>
-                <br/>
-                Las reservas pagaran solo la mitad del costo de inscripción.<br/>
-            </p>
-            <p>
-                Se les notificará por correo si fueron aceptados en la liga, costo de inscripción y su posición en el equipo.
-            </p>
             <div className="flex flex-row mt-5 gap-5">
                 <div className="basis-1/2">
                     <h2 className="text-2xl font-bold mb-5 text-center">Pre-registro</h2>
+                    <p className="text-md text-gray-400 mb-4">
+                        Se les notificará por correo si fueron aceptados en la liga, costo de inscripción y su posición en el equipo.
+                        <br />
+                        Personas inscritas como <strong>reserva</strong> pagaran solo la mitad del costo de inscripción.<br />
+                    </p>
                     {responseMessage.value &&
                         <p
                             className={"text-center mb-3" + (responseMessage.type === "sucess" ? " text-green-500" : responseMessage.type = "error" ? " text-red-500" : "")}
@@ -154,6 +143,19 @@ export default function Home() {
                         />
                         {formik.touched.email && formik.errors.email ? (
                             <span className="text-red-500 text-sm"> {formik.errors.email}</span>
+                        ) : null}
+                        <Spacer y={4} />
+                        <Input
+                            type="text"
+                            name="phone"
+                            placeholder="Teléfono"
+                            value={formik.values.phone}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            className="w-full"
+                        />
+                        {formik.touched.phone && formik.errors.phone ? (
+                            <span className="text-red-500 text-sm"> {formik.errors.phone}</span>
                         ) : null}
                         <Spacer y={4} />
                         <Select
@@ -206,14 +208,12 @@ export default function Home() {
                             <Table>
                                 <TableHeader>
                                     <TableColumn>Nombre</TableColumn>
-                                    <TableColumn>Correo</TableColumn>
                                     <TableColumn>Posición</TableColumn>
                                 </TableHeader>
                                 <TableBody>
                                     {item.requests.map((request: any) => (
                                         <TableRow key={request.email}>
                                             <TableCell>{request.name}</TableCell>
-                                            <TableCell>{request.email}</TableCell>
                                             <TableCell>{request.position}</TableCell>
                                         </TableRow>
                                     ))}

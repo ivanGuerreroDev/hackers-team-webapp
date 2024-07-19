@@ -20,9 +20,9 @@ export default function RootLayout({
         <link rel="icon" href="/images/favicon.png" sizes="any" />
       </head>
       <NextUIProvider>
-        <body className={inter.className}>
+        <body className={inter.className+" min-h-screen flex flex-col items-justify-between"}>
           {children}
-          <footer>
+          <footer className="mt-auto">
             <p>© 2024 Hackers | Desarrollador por: <a href="https://github.com/ivanGuerreroDev" target="_blank">Ivan Guerrero</a></p>
           </footer>
         </body>
