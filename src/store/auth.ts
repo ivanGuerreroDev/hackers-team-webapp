@@ -1,6 +1,6 @@
 // create zustand auth store
 
-import create from "zustand";
+import {create} from "zustand";
 import { User } from "firebase/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -17,7 +17,7 @@ type Action = {
 export const useAuthStore = create<AuthStore & Action>(
     (set) => ({
         user: null,
-        loading: true,
+        loading: false,
         setLoading: (loading: boolean) => set({ loading }),
         setUser: (user: User | null) => set({ user }),
     })

@@ -15,7 +15,7 @@ import {
 } from "@nextui-org/table";
 import { useFormik } from "formik";
 import { collection, getDocs, addDoc, doc, query, where } from "firebase/firestore";
-import db from "@/lib/firebase";
+import {db} from "@/lib/firebase";
 
 import * as Yup from "yup";
 type Form = {

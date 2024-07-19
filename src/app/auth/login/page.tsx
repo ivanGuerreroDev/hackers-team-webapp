@@ -1,16 +1,17 @@
 "use client";
 import { useState } from "react";
 import { NextPage } from "next";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { Button, Input, Spacer } from "@nextui-org/react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useAuthStore } from "@/store/auth";
+import firebase_app from "@/lib/firebase";
 
 export default function AuthPage() {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const auth = getAuth();
+    const auth = getAuth(firebase_app);
     const user = useAuthStore((state) => state.user);
     const loading = useAuthStore((state) => state.loading);
     const setLoading = useAuthStore((state) => state.setLoading);
