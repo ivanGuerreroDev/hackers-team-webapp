@@ -1,7 +1,4 @@
-// generate auth page witn nextUi and firebase
-
-
-
+"use client";
 import { useState } from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
