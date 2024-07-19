@@ -7,7 +7,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Hackers App",
   description: "Aplicación web del equipo Hackers",
-  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({
