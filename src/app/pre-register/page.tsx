@@ -167,9 +167,14 @@ export default function Home() {
                             className="w-full dark text-foreground !bg-background"
                         >
                             <SelectSection title="Posiciones">
-                                <SelectItem key="infield">Infield - Costo: 70$ (titular)</SelectItem>
-                                <SelectItem key="outfield">Outfield - Costo: 70$ (titular)</SelectItem>
+                                <SelectItem key="first_base">1st Base - Costo: 70$ (titular)</SelectItem>
+                                <SelectItem key="second_base">2nd Base - Costo: 70$ (titular)</SelectItem>
+                                <SelectItem key="third_base">3rd Base - Costo: 70$ (titular)</SelectItem>
                                 <SelectItem key="catcher">Catcher - Costo: 70$ (titular)</SelectItem>
+                                <SelectItem key="left_field">Left Field - Costo: 70$ (titular)</SelectItem>
+                                <SelectItem key="center_field">Center Field - Costo: 70$ (titular)</SelectItem>
+                                <SelectItem key="right_field">Right Field - Costo: 70$ (titular)</SelectItem>
+                                <SelectItem key="short_fiel">Short Field - Costo: 70$ (titular)</SelectItem>
                                 <SelectItem key="pitcher">Pitcher - Costo: 35$</SelectItem>
                                 <SelectItem key="reserva">Reserva - Costo: 35$</SelectItem>
                             </SelectSection>
