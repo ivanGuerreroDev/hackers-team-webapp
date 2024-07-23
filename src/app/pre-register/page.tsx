@@ -225,7 +225,6 @@ export default function Home() {
                             <Table>
                                 <TableHeader>
                                     <TableColumn>Nombre</TableColumn>
-                                    <TableColumn>Posición</TableColumn>
                                 </TableHeader>
                                 <TableBody>
                                     {item.requests.map((request: any) => (
