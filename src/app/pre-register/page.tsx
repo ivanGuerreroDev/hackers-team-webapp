@@ -24,6 +24,18 @@ type Form = {
     position: string;
     league: string;
 };
+const positions: any = {
+    "first_base": "1st Base",
+    "second_base": "2nd Base",
+    "third_base": "3rd Base",
+    "catcher": "Catcher",
+    "left_field": "Left Field",
+    "center_field": "Center Field",
+    "right_field": "Right Field ",
+    "short_field": "Short Field",
+    "pitcher": "Pitcher",
+    "reserva": "Reserva"
+}
 export default function Home() {
 
     const leaguesRef = query(collection(db, "leagues"), where("isOpenToRequest", "==", true));
@@ -105,8 +117,8 @@ export default function Home() {
                     height={100}
                 />
             </div>
-            <div className="flex flex-row mt-5 gap-5">
-                <div className="basis-1/2">
+            <div className="flex flex-row flex-wrap md:flex-nowrap mt-5 gap-5">
+                <div className="basis-full md:basis-1/2">
                     <h2 className="text-2xl font-bold mb-5 text-center">Pre-registro</h2>
                     <p className="text-md text-gray-400 mb-4">
                         Se les notificará por correo si fueron aceptados en la liga y su posición de juego.
@@ -174,7 +186,7 @@ export default function Home() {
                                 <SelectItem key="left_field">Left Field - Costo: 70$ (titular)</SelectItem>
                                 <SelectItem key="center_field">Center Field - Costo: 70$ (titular)</SelectItem>
                                 <SelectItem key="right_field">Right Field - Costo: 70$ (titular)</SelectItem>
-                                <SelectItem key="short_fiel">Short Field - Costo: 70$ (titular)</SelectItem>
+                                <SelectItem key="short_field">Short Field - Costo: 70$ (titular)</SelectItem>
                                 <SelectItem key="pitcher">Pitcher - Costo: 35$</SelectItem>
                                 <SelectItem key="reserva">Reserva - Costo: 35$</SelectItem>
                             </SelectSection>
@@ -206,7 +218,7 @@ export default function Home() {
                         <Button type="submit" className="w-full">Enviar</Button>
                     </form>
                 </div>
-                <div className="basis-1/2">
+                <div className="basis-full md:basis-1/2">
                     {requestList.map((item) => (
                         <div key={item.league} className="flex flex-col gap-2 mb-4">
                             <h4 className="text-md mb-1">Liga: {item.league}</h4>
@@ -219,7 +231,7 @@ export default function Home() {
                                     {item.requests.map((request: any) => (
                                         <TableRow key={request.email}>
                                             <TableCell>{request.name}</TableCell>
-                                            <TableCell>{request.position}</TableCell>
+                                            <TableCell>{positions[request.position]}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
