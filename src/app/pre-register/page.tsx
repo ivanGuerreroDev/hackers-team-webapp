@@ -231,7 +231,6 @@ export default function Home() {
                                     {item.requests.map((request: any) => (
                                         <TableRow key={request.email}>
                                             <TableCell>{request.name}</TableCell>
-                                            <TableCell>{positions[request.position]}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
